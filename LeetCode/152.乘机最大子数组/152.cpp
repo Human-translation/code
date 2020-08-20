@@ -1,0 +1,22 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <unordered_set>
+using namespace std;
+
+int maxProduct(vector<int>& nums) {
+	vector <int> maxF(nums), minF(nums);
+	for (int i = 1; i < nums.size(); ++i) {
+		maxF[i] = max(maxF[i - 1] * nums[i], max(nums[i], minF[i - 1] * nums[i]));
+		minF[i] = min(minF[i - 1] * nums[i], min(nums[i], maxF[i - 1] * nums[i]));
+	}
+	return *max_element(maxF.begin(), maxF.end());
+}
+
+//int main()
+//{
+//	vector<int> num{ 2,3,-2,4,-5 };
+//	cout<< maxProduct(num)<<endl;
+//	return 0;
+//}
